@@ -14,16 +14,285 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      answers: {
+        Row: {
+          attempt_id: string
+          benar: boolean | null
+          id: string
+          jawaban_siswa: string | null
+          question_id: string
+          updated_at: string
+        }
+        Insert: {
+          attempt_id: string
+          benar?: boolean | null
+          id?: string
+          jawaban_siswa?: string | null
+          question_id: string
+          updated_at?: string
+        }
+        Update: {
+          attempt_id?: string
+          benar?: boolean | null
+          id?: string
+          jawaban_siswa?: string | null
+          question_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "answers_attempt_id_fkey"
+            columns: ["attempt_id"]
+            isOneToOne: false
+            referencedRelation: "exam_attempts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "answers_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "questions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      exam_attempts: {
+        Row: {
+          exam_id: string
+          id: string
+          siswa_id: string
+          skor: number | null
+          status: Database["public"]["Enums"]["attempt_status"]
+          waktu_mulai: string
+          waktu_selesai: string | null
+        }
+        Insert: {
+          exam_id: string
+          id?: string
+          siswa_id: string
+          skor?: number | null
+          status?: Database["public"]["Enums"]["attempt_status"]
+          waktu_mulai?: string
+          waktu_selesai?: string | null
+        }
+        Update: {
+          exam_id?: string
+          id?: string
+          siswa_id?: string
+          skor?: number | null
+          status?: Database["public"]["Enums"]["attempt_status"]
+          waktu_mulai?: string
+          waktu_selesai?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "exam_attempts_exam_id_fkey"
+            columns: ["exam_id"]
+            isOneToOne: false
+            referencedRelation: "exams"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      exam_questions: {
+        Row: {
+          exam_id: string
+          id: string
+          question_id: string
+          urutan: number
+        }
+        Insert: {
+          exam_id: string
+          id?: string
+          question_id: string
+          urutan?: number
+        }
+        Update: {
+          exam_id?: string
+          id?: string
+          question_id?: string
+          urutan?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "exam_questions_exam_id_fkey"
+            columns: ["exam_id"]
+            isOneToOne: false
+            referencedRelation: "exams"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "exam_questions_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "questions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      exams: {
+        Row: {
+          acak_opsi: boolean
+          acak_soal: boolean
+          created_at: string
+          durasi_menit: number
+          id: string
+          judul: string
+          pembuat_id: string | null
+          status: Database["public"]["Enums"]["exam_status"]
+          subject_id: string
+          token: string
+          waktu_mulai: string
+          waktu_selesai: string
+        }
+        Insert: {
+          acak_opsi?: boolean
+          acak_soal?: boolean
+          created_at?: string
+          durasi_menit?: number
+          id?: string
+          judul: string
+          pembuat_id?: string | null
+          status?: Database["public"]["Enums"]["exam_status"]
+          subject_id: string
+          token: string
+          waktu_mulai?: string
+          waktu_selesai?: string
+        }
+        Update: {
+          acak_opsi?: boolean
+          acak_soal?: boolean
+          created_at?: string
+          durasi_menit?: number
+          id?: string
+          judul?: string
+          pembuat_id?: string | null
+          status?: Database["public"]["Enums"]["exam_status"]
+          subject_id?: string
+          token?: string
+          waktu_mulai?: string
+          waktu_selesai?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "exams_subject_id_fkey"
+            columns: ["subject_id"]
+            isOneToOne: false
+            referencedRelation: "subjects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          id: string
+          kelas: string | null
+          nama: string
+          role: Database["public"]["Enums"]["app_role"]
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          kelas?: string | null
+          nama?: string
+          role?: Database["public"]["Enums"]["app_role"]
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          kelas?: string | null
+          nama?: string
+          role?: Database["public"]["Enums"]["app_role"]
+        }
+        Relationships: []
+      }
+      questions: {
+        Row: {
+          bobot: number
+          created_at: string
+          gambar_url: string | null
+          id: string
+          kunci_jawaban: string
+          opsi_jawaban: Json
+          pembuat_id: string | null
+          pertanyaan: string
+          subject_id: string
+          tingkat_kesulitan: string
+          tipe: Database["public"]["Enums"]["question_type"]
+        }
+        Insert: {
+          bobot?: number
+          created_at?: string
+          gambar_url?: string | null
+          id?: string
+          kunci_jawaban: string
+          opsi_jawaban?: Json
+          pembuat_id?: string | null
+          pertanyaan: string
+          subject_id: string
+          tingkat_kesulitan?: string
+          tipe?: Database["public"]["Enums"]["question_type"]
+        }
+        Update: {
+          bobot?: number
+          created_at?: string
+          gambar_url?: string | null
+          id?: string
+          kunci_jawaban?: string
+          opsi_jawaban?: Json
+          pembuat_id?: string | null
+          pertanyaan?: string
+          subject_id?: string
+          tingkat_kesulitan?: string
+          tipe?: Database["public"]["Enums"]["question_type"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "questions_subject_id_fkey"
+            columns: ["subject_id"]
+            isOneToOne: false
+            referencedRelation: "subjects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      subjects: {
+        Row: {
+          created_at: string
+          id: string
+          nama_mapel: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          nama_mapel: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          nama_mapel?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "guru" | "siswa"
+      attempt_status: "berlangsung" | "selesai"
+      exam_status: "draft" | "aktif" | "selesai"
+      question_type: "pg" | "esai"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +419,11 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "guru", "siswa"],
+      attempt_status: ["berlangsung", "selesai"],
+      exam_status: ["draft", "aktif", "selesai"],
+      question_type: ["pg", "esai"],
+    },
   },
 } as const
