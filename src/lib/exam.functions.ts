@@ -62,17 +62,17 @@ export const getAttemptForStudent = createServerFn({ method: "GET" })
       .eq("exam_id", exam.id)
       .order("urutan");
 
-    type RawQ = { id: string; pertanyaan: string; opsi_jawaban: unknown; gambar_url: string | null; bobot: number; tipe: string };
-    let questions = (eqs ?? []).map((r) => r.questions as RawQ).filter(Boolean);
+    type RawQ = { id: string; pertanyaan: string; opsi_jawaban: string[]; gambar_url: string | null; bobot: number; tipe: string };
+    let questions: RawQ[] = (eqs ?? []).map((r) => {
+      const q = r.questions as unknown as { id: string; pertanyaan: string; opsi_jawaban: unknown; gambar_url: string | null; bobot: number; tipe: string };
+      return { ...q, opsi_jawaban: Array.isArray(q.opsi_jawaban) ? (q.opsi_jawaban as string[]) : [] };
+    }).filter(Boolean);
 
     // Deterministic shuffle by attempt id
     const seed = hashSeed(attempt.id);
     if (exam.acak_soal) questions = shuffle(questions, seed);
     if (exam.acak_opsi) {
-      questions = questions.map((q, i) => {
-        const opts = Array.isArray(q.opsi_jawaban) ? (q.opsi_jawaban as string[]) : [];
-        return { ...q, opsi_jawaban: shuffle(opts, seed + i + 1) };
-      });
+      questions = questions.map((q, i) => ({ ...q, opsi_jawaban: shuffle(q.opsi_jawaban, seed + i + 1) }));
     }
 
     // Load existing answers
