@@ -13,8 +13,14 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedSiswaExamsRouteImport } from './routes/_authenticated/siswa/exams'
+import { Route as AuthenticatedGuruQuestionsRouteImport } from './routes/_authenticated/guru/questions'
+import { Route as AuthenticatedGuruGradingRouteImport } from './routes/_authenticated/guru/grading'
+import { Route as AuthenticatedGuruExamsRouteImport } from './routes/_authenticated/guru/exams'
 import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin/users'
 import { Route as AuthenticatedAdminSubjectsRouteImport } from './routes/_authenticated/admin/subjects'
+import { Route as AuthenticatedSiswaResultAttemptIdRouteImport } from './routes/_authenticated/siswa/result.$attemptId'
+import { Route as AuthenticatedSiswaExamAttemptIdRouteImport } from './routes/_authenticated/siswa/exam.$attemptId'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -35,6 +41,28 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedSiswaExamsRoute = AuthenticatedSiswaExamsRouteImport.update({
+  id: '/siswa/exams',
+  path: '/siswa/exams',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedGuruQuestionsRoute =
+  AuthenticatedGuruQuestionsRouteImport.update({
+    id: '/guru/questions',
+    path: '/guru/questions',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedGuruGradingRoute =
+  AuthenticatedGuruGradingRouteImport.update({
+    id: '/guru/grading',
+    path: '/guru/grading',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedGuruExamsRoute = AuthenticatedGuruExamsRouteImport.update({
+  id: '/guru/exams',
+  path: '/guru/exams',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedAdminUsersRoute = AuthenticatedAdminUsersRouteImport.update({
   id: '/admin/users',
   path: '/admin/users',
@@ -46,6 +74,18 @@ const AuthenticatedAdminSubjectsRoute =
     path: '/admin/subjects',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedSiswaResultAttemptIdRoute =
+  AuthenticatedSiswaResultAttemptIdRouteImport.update({
+    id: '/siswa/result/$attemptId',
+    path: '/siswa/result/$attemptId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSiswaExamAttemptIdRoute =
+  AuthenticatedSiswaExamAttemptIdRouteImport.update({
+    id: '/siswa/exam/$attemptId',
+    path: '/siswa/exam/$attemptId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -53,6 +93,12 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/admin/subjects': typeof AuthenticatedAdminSubjectsRoute
   '/admin/users': typeof AuthenticatedAdminUsersRoute
+  '/guru/exams': typeof AuthenticatedGuruExamsRoute
+  '/guru/grading': typeof AuthenticatedGuruGradingRoute
+  '/guru/questions': typeof AuthenticatedGuruQuestionsRoute
+  '/siswa/exams': typeof AuthenticatedSiswaExamsRoute
+  '/siswa/exam/$attemptId': typeof AuthenticatedSiswaExamAttemptIdRoute
+  '/siswa/result/$attemptId': typeof AuthenticatedSiswaResultAttemptIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -60,6 +106,12 @@ export interface FileRoutesByTo {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/admin/subjects': typeof AuthenticatedAdminSubjectsRoute
   '/admin/users': typeof AuthenticatedAdminUsersRoute
+  '/guru/exams': typeof AuthenticatedGuruExamsRoute
+  '/guru/grading': typeof AuthenticatedGuruGradingRoute
+  '/guru/questions': typeof AuthenticatedGuruQuestionsRoute
+  '/siswa/exams': typeof AuthenticatedSiswaExamsRoute
+  '/siswa/exam/$attemptId': typeof AuthenticatedSiswaExamAttemptIdRoute
+  '/siswa/result/$attemptId': typeof AuthenticatedSiswaResultAttemptIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -69,12 +121,40 @@ export interface FileRoutesById {
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/admin/subjects': typeof AuthenticatedAdminSubjectsRoute
   '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
+  '/_authenticated/guru/exams': typeof AuthenticatedGuruExamsRoute
+  '/_authenticated/guru/grading': typeof AuthenticatedGuruGradingRoute
+  '/_authenticated/guru/questions': typeof AuthenticatedGuruQuestionsRoute
+  '/_authenticated/siswa/exams': typeof AuthenticatedSiswaExamsRoute
+  '/_authenticated/siswa/exam/$attemptId': typeof AuthenticatedSiswaExamAttemptIdRoute
+  '/_authenticated/siswa/result/$attemptId': typeof AuthenticatedSiswaResultAttemptIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/dashboard' | '/admin/subjects' | '/admin/users'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/dashboard'
+    | '/admin/subjects'
+    | '/admin/users'
+    | '/guru/exams'
+    | '/guru/grading'
+    | '/guru/questions'
+    | '/siswa/exams'
+    | '/siswa/exam/$attemptId'
+    | '/siswa/result/$attemptId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/dashboard' | '/admin/subjects' | '/admin/users'
+  to:
+    | '/'
+    | '/auth'
+    | '/dashboard'
+    | '/admin/subjects'
+    | '/admin/users'
+    | '/guru/exams'
+    | '/guru/grading'
+    | '/guru/questions'
+    | '/siswa/exams'
+    | '/siswa/exam/$attemptId'
+    | '/siswa/result/$attemptId'
   id:
     | '__root__'
     | '/'
@@ -83,6 +163,12 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard'
     | '/_authenticated/admin/subjects'
     | '/_authenticated/admin/users'
+    | '/_authenticated/guru/exams'
+    | '/_authenticated/guru/grading'
+    | '/_authenticated/guru/questions'
+    | '/_authenticated/siswa/exams'
+    | '/_authenticated/siswa/exam/$attemptId'
+    | '/_authenticated/siswa/result/$attemptId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -121,6 +207,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/siswa/exams': {
+      id: '/_authenticated/siswa/exams'
+      path: '/siswa/exams'
+      fullPath: '/siswa/exams'
+      preLoaderRoute: typeof AuthenticatedSiswaExamsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/guru/questions': {
+      id: '/_authenticated/guru/questions'
+      path: '/guru/questions'
+      fullPath: '/guru/questions'
+      preLoaderRoute: typeof AuthenticatedGuruQuestionsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/guru/grading': {
+      id: '/_authenticated/guru/grading'
+      path: '/guru/grading'
+      fullPath: '/guru/grading'
+      preLoaderRoute: typeof AuthenticatedGuruGradingRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/guru/exams': {
+      id: '/_authenticated/guru/exams'
+      path: '/guru/exams'
+      fullPath: '/guru/exams'
+      preLoaderRoute: typeof AuthenticatedGuruExamsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/users': {
       id: '/_authenticated/admin/users'
       path: '/admin/users'
@@ -135,6 +249,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminSubjectsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/siswa/result/$attemptId': {
+      id: '/_authenticated/siswa/result/$attemptId'
+      path: '/siswa/result/$attemptId'
+      fullPath: '/siswa/result/$attemptId'
+      preLoaderRoute: typeof AuthenticatedSiswaResultAttemptIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/siswa/exam/$attemptId': {
+      id: '/_authenticated/siswa/exam/$attemptId'
+      path: '/siswa/exam/$attemptId'
+      fullPath: '/siswa/exam/$attemptId'
+      preLoaderRoute: typeof AuthenticatedSiswaExamAttemptIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
@@ -142,12 +270,25 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedAdminSubjectsRoute: typeof AuthenticatedAdminSubjectsRoute
   AuthenticatedAdminUsersRoute: typeof AuthenticatedAdminUsersRoute
+  AuthenticatedGuruExamsRoute: typeof AuthenticatedGuruExamsRoute
+  AuthenticatedGuruGradingRoute: typeof AuthenticatedGuruGradingRoute
+  AuthenticatedGuruQuestionsRoute: typeof AuthenticatedGuruQuestionsRoute
+  AuthenticatedSiswaExamsRoute: typeof AuthenticatedSiswaExamsRoute
+  AuthenticatedSiswaExamAttemptIdRoute: typeof AuthenticatedSiswaExamAttemptIdRoute
+  AuthenticatedSiswaResultAttemptIdRoute: typeof AuthenticatedSiswaResultAttemptIdRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedAdminSubjectsRoute: AuthenticatedAdminSubjectsRoute,
   AuthenticatedAdminUsersRoute: AuthenticatedAdminUsersRoute,
+  AuthenticatedGuruExamsRoute: AuthenticatedGuruExamsRoute,
+  AuthenticatedGuruGradingRoute: AuthenticatedGuruGradingRoute,
+  AuthenticatedGuruQuestionsRoute: AuthenticatedGuruQuestionsRoute,
+  AuthenticatedSiswaExamsRoute: AuthenticatedSiswaExamsRoute,
+  AuthenticatedSiswaExamAttemptIdRoute: AuthenticatedSiswaExamAttemptIdRoute,
+  AuthenticatedSiswaResultAttemptIdRoute:
+    AuthenticatedSiswaResultAttemptIdRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
@@ -161,3 +302,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
