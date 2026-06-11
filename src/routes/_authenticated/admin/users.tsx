@@ -21,7 +21,7 @@ function UsersPage() {
   const updateRole = useServerFn(updateUserRole);
   const del = useServerFn(deleteUser);
   const qc = useQueryClient();
-  const { data, isLoading } = useQuery({ queryKey: ["admin-users"], queryFn: () => list() });
+  const { data, isLoading, error } = useQuery({ queryKey: ["admin-users"], queryFn: () => list() });
 
   const updateMut = useMutation({
     mutationFn: (vars: { userId: string; role: "admin" | "guru" | "siswa" }) => updateRole({ data: vars }),
@@ -41,7 +41,7 @@ function UsersPage() {
       <Card>
         <CardHeader><CardTitle>Kelola Pengguna</CardTitle></CardHeader>
         <CardContent>
-          {isLoading ? <div className="text-muted-foreground">Memuat...</div> : (
+          {isLoading ? <div className="text-muted-foreground">Memuat...</div> : error ? <div className="text-destructive">Error: {(error as Error).message}</div> : (
             <div className="overflow-x-auto">
               <Table>
                 <TableHeader><TableRow>
