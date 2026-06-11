@@ -41,7 +41,7 @@ function UsersPage() {
       <Card>
         <CardHeader><CardTitle>Kelola Pengguna</CardTitle></CardHeader>
         <CardContent>
-          {isLoading ? <div className="text-muted-foreground">Memuat...</div> : (
+          {isLoading ? <div className="text-muted-foreground">Memuat...</div> : error ? <div className="text-destructive">Error: {(error as Error).message}</div> : (
             <div className="overflow-x-auto">
               <Table>
                 <TableHeader><TableRow>
